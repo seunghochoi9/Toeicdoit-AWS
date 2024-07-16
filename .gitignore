@@ -36,7 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 .git/*
-*.yml
 mongodb/*
 mysql/*
 postgres/*
