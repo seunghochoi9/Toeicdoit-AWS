@@ -21,8 +21,8 @@ public class UserController {
     private final UserService service;
 
     @SuppressWarnings("static-access")
-    @GetMapping("/findAll")
-    public ResponseEntity<List<UserDto>> findAll(PageRequestVo vo) {
+    @GetMapping("/find-all")
+    public ResponseEntity<List<UserDto>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
 

@@ -29,7 +29,6 @@ public class UserModel extends BaseModel{
     private String registration;
     private Long oauthId;
 
-    
     // ====================== user ========================
 
     @Setter
@@ -46,7 +45,7 @@ public class UserModel extends BaseModel{
 
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private List<PaymentModel> paymentIds;
-    
+
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private List<SubscribeModel> subscribeIds;
 

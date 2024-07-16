@@ -2,12 +2,15 @@ package site.toeicdoit.user.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import site.toeicdoit.user.domain.dto.BoardDto;
 import site.toeicdoit.user.domain.vo.Messenger;
 import site.toeicdoit.user.service.BoardService;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -51,11 +54,20 @@ public class BoardController {
         return ResponseEntity.ok(service.existsById(id));
     }
 
-    @GetMapping("/findAll")
+    @GetMapping("/find-all")
     public ResponseEntity<List<BoardDto>> findAll() {
-        log.info(">>> exists findAll con 진입");
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("/find-types")
+    public ResponseEntity<Page<BoardDto>> findByTypes(@RequestParam("type") String type, Pageable pageable) {
+        log.info(">>> findByType 진입 : {}, {}", type, pageable);
+        return ResponseEntity.ok(service.findByTypes(type, pageable));
+    }
+
+    @GetMapping("/find-userId")
+    public ResponseEntity<List<BoardDto>> findByUserId(@RequestParam("id") Long id) {
+        return ResponseEntity.ok(service.findByUserId(id));
+    }
 
 }

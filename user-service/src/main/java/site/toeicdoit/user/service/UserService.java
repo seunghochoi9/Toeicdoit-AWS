@@ -3,12 +3,12 @@ package site.toeicdoit.user.service;
 import site.toeicdoit.user.domain.dto.UserDto;
 import site.toeicdoit.user.domain.model.mysql.UserModel;
 import site.toeicdoit.user.domain.vo.Messenger;
-import site.toeicdoit.user.domain.vo.Role;
 
 public interface UserService extends CommandService<UserDto>, QueryService<UserDto> {
 
     default UserModel dtoToEntity(UserDto dto){
         return UserModel.builder()
+                .id(dto.getId())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .profile(dto.getProfile())
@@ -16,6 +16,7 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
                 .phone(dto.getPhone())
                 .toeicLevel(dto.getToeicLevel())
                 .registration(dto.getRegistration())
+                .oauthId(dto.getOauthId())
                 .build();
     }
 
@@ -30,12 +31,15 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
                 .toeicLevel(userModel.getToeicLevel())
                 .registration(userModel.getRegistration())
                 .role(userModel.getRoleIds().toString())
-                .calenderId(userModel.getCalendarId().getId())
+                .calendarId(userModel.getCalendarId().getId())
+                .oauthId(userModel.getOauthId())
+                .createdAt(userModel.getCreatedAt())
+                .updatedAt(userModel.getUpdatedAt())
                 .build();
     }
 
     Messenger count();
-    Messenger modify(UserDto user);
-    Role localLogin(UserDto dto);
+    Messenger login(UserDto dto);
     Messenger existsByEmail(String email);
+    Messenger oauthJoin(UserDto dto);
 }
