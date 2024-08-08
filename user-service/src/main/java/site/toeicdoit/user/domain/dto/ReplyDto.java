@@ -1,18 +1,23 @@
 package site.toeicdoit.user.domain.dto;
 
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
-@Component
+import java.time.LocalDateTime;
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Data
 @Builder
 public class ReplyDto {
     private Long id;
     private String content;
-    private String writer;
+    private Long userId;
+    private String writerName;
+    private Long boardId;
+    private String boardTitle;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private LocalDateTime createdAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private LocalDateTime updatedAt;
 }

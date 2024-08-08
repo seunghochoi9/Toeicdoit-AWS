@@ -1,8 +1,7 @@
-package site.toeicdoit.user.domain.model.mysql;
+package site.toeicdoit.user.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 
 import java.util.List;
 

@@ -1,14 +1,19 @@
 package site.toeicdoit.user.service;
 
-import site.toeicdoit.user.domain.dto.UserDto;
-import site.toeicdoit.user.domain.model.mysql.UserModel;
+import site.toeicdoit.user.domain.dto.*;
+import site.toeicdoit.user.domain.model.CalendarModel;
+import site.toeicdoit.user.domain.model.UserModel;
 import site.toeicdoit.user.domain.vo.Messenger;
+import site.toeicdoit.user.domain.vo.Role;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public interface UserService extends CommandService<UserDto>, QueryService<UserDto> {
 
     default UserModel dtoToEntity(UserDto dto){
         return UserModel.builder()
-                .id(dto.getId())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
                 .profile(dto.getProfile())
@@ -24,22 +29,24 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
         return UserDto.builder()
                 .id(userModel.getId())
                 .email(userModel.getEmail())
-                .password(userModel.getPassword())
                 .profile(userModel.getProfile())
                 .name(userModel.getName())
                 .phone(userModel.getPhone())
                 .toeicLevel(userModel.getToeicLevel())
                 .registration(userModel.getRegistration())
-                .role(userModel.getRoleIds().toString())
-                .calendarId(userModel.getCalendarId().getId())
+                .roles(userModel.getRoleIds().stream().map(i -> Role.getRole(i.getRole())).toList())
                 .oauthId(userModel.getOauthId())
                 .createdAt(userModel.getCreatedAt())
                 .updatedAt(userModel.getUpdatedAt())
                 .build();
     }
 
-    Messenger count();
-    Messenger login(UserDto dto);
-    Messenger existsByEmail(String email);
-    Messenger oauthJoin(UserDto dto);
+    LoginResultDto oauthJoinOrLogin(OAuth2UserDto dto, String registration);
+    LoginResultDto login(UserDto dto);
+    Boolean existByEmail(String email);
+    UserDto findByEmail(String email);
+    Boolean modifyByPassword(String email, String oldPassword, String newPassword);
+    UserDto modifyByNameAndPhone(UserDto dto);
+    Map<Long, List<String>> findByNameAndProfile(Map<String, List<Long>> ids);
+    UserDto modifyByKeyword(Long id, String keyword, String info);
 }

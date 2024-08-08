@@ -1,31 +1,20 @@
 package site.toeicdoit.user.domain.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
-import org.springframework.stereotype.Component;
-
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Component
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-public class BoardDto {
+public class CalendarDto {
     private Long id;
     private String title;
-    private String content;
-    private String type;
-    private String category;
+    private boolean isAllDay;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private LocalDateTime startTime;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+    private LocalDateTime endTime;
     private Long userId;
-    private List<?> replyIds;
-
-
-    private String writerName;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-    private LocalDateTime createdAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
-    private LocalDateTime updatedAt;
 }

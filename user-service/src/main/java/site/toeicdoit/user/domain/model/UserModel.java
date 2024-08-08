@@ -1,4 +1,4 @@
-package site.toeicdoit.user.domain.model.mysql;
+package site.toeicdoit.user.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,16 +22,19 @@ public class UserModel extends BaseModel{
     private String email;
 
     private String password;
+
+    @Setter
     private String profile;
+    @Setter
     private String name;
+
     private String phone;
-    private Integer toeicLevel;
+    private String toeicLevel;
     private String registration;
-    private Long oauthId;
+    private String oauthId;
 
     // ====================== user ========================
 
-    @Setter
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoleModel> roleIds;
 
@@ -49,8 +52,8 @@ public class UserModel extends BaseModel{
     @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
     private List<SubscribeModel> subscribeIds;
 
-    @OneToOne(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private CalendarModel calendarId;
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CalendarModel> calendarIds;
 
     
 }

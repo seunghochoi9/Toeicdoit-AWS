@@ -1,4 +1,4 @@
-package site.toeicdoit.user.domain.model.mysql;
+package site.toeicdoit.user.domain.model;
 
 
 import jakarta.persistence.*;
@@ -25,7 +25,7 @@ public class CalendarModel extends BaseModel {
     private LocalDateTime endTime;
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserModel userId;
 }
